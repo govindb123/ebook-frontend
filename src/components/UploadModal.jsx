@@ -1,4 +1,5 @@
 import { useState } from "react";
+import toast from "react-hot-toast";
 import { uploadEbook } from "../api/ebookApi";
 import "./UploadModal.css";
 
@@ -10,7 +11,7 @@ function UploadModal({ fetchEbooks }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!file) { alert("Please select a PDF file"); return; }
+    if (!file) { toast.error("Please select a PDF or EPUB file"); return; }
 
     const formData = new FormData();
     formData.append("title", title);
@@ -20,11 +21,16 @@ function UploadModal({ fetchEbooks }) {
     setUploading(true);
     try {
       await uploadEbook(formData);
+      toast.success("Ebook uploaded successfully!");
       setTitle(""); setAuthor(""); setFile(null);
       fetchEbooks();
     } catch (error) {
-      console.error(error);
-      alert("Upload failed");
+      const errors = error.response?.data?.errors;
+      if (errors && errors.length > 0) {
+        errors.forEach((msg) => toast.error(msg));
+      } else {
+        toast.error("Upload failed. Please try again.");
+      }
     } finally {
       setUploading(false);
     }

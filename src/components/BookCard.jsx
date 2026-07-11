@@ -54,6 +54,7 @@ function BookCard({ ebook, onDelete }) {
         <div className="book-card__meta">
           <span>{ebook.file_type?.toUpperCase()}</span>
           <span>{(ebook.file_size / 1024).toFixed(1)} KB</span>
+          <span>📅 {new Date(ebook.uploaded_at).toLocaleDateString()}</span>
         </div>
         <div className="book-card__actions">
           <button

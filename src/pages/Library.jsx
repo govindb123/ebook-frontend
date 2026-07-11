@@ -5,20 +5,25 @@ import EmptyState from "../components/EmptyState";
 import Loader from "../components/Loader";
 import UploadModal from "../components/UploadModal";
 import SearchBar from "../components/SearchBar";
+import heroBg from "../assets/hero.png";
+import toast from "react-hot-toast";
 import "./Library.css";
 
 function Library() {
   const [ebooks, setEbooks] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => { fetchEbooks(); }, []);
 
   const fetchEbooks = async () => {
     try {
+      setError(null);
       const response = await getEbooks();
       setEbooks(response.data.data);
-    } catch (error) {
-      console.error("Error fetching ebooks:", error);
+    } catch (err) {
+      console.error("Error fetching ebooks:", err);
+      setError("Failed to load ebooks. Please check your connection and try again.");
     } finally {
       setLoading(false);
     }
@@ -29,8 +34,9 @@ function Library() {
       if (!query.trim()) { fetchEbooks(); return; }
       const response = await searchEbooks(query);
       setEbooks(response.data.data);
-    } catch (error) {
-      console.error(error);
+    } catch (err) {
+      console.error(err);
+      toast.error("Search failed. Please try again.");
     }
   };
 
@@ -38,16 +44,26 @@ function Library() {
     if (!window.confirm("Are you sure you want to delete this ebook?")) return;
     try {
       await deleteEbook(id);
+      toast.success("Ebook deleted successfully.");
       fetchEbooks();
-    } catch (error) {
-      console.error(error);
+    } catch (err) {
+      console.error(err);
+      toast.error("Delete failed. Please try again.");
     }
   };
 
   if (loading) return <Loader />;
 
+  if (error) return (
+    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", height: "100vh", gap: "16px" }}>
+      <div style={{ fontSize: "48px" }}>⚠️</div>
+      <p style={{ color: "#f87171", fontSize: "16px", textAlign: "center", maxWidth: "400px" }}>{error}</p>
+      <button onClick={fetchEbooks} style={{ padding: "10px 24px", background: "linear-gradient(135deg,#7c3aed,#9333ea)", color: "#fff", border: "none", borderRadius: "10px", cursor: "pointer", fontWeight: 700 }}>Retry</button>
+    </div>
+  );
+
   return (
-    <div className="library">
+    <div className="library" style={{ backgroundImage: `url(${heroBg})` }}>
       <header className="library__header">
         <div className="library__header-glow" />
         <div className="library__hero">

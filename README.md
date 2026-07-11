@@ -253,7 +253,7 @@ Frontend runs on:
 http://localhost:5173
 ```
 
----
+-------------------------------------------------------------------------
 
 ## 🧪 Running Tests
 
@@ -271,7 +271,7 @@ Test coverage includes:
 * DELETE /api/v1/ebooks/:id — delete ebook
 * Validation errors (missing file, invalid file type)
 
----
+-----------------------------------------------------------------------
 
 ## 📝 Manual Testing Checklist
 
@@ -289,11 +289,10 @@ Test coverage includes:
 * Empty library state
 * Loading state
 
----
+------------------------------------------------------------------------------
 
 ## 🎨 UI Design
 
-* Dark theme with `#0d0d18` background
 * Glassmorphism cards with `backdrop-filter: blur`
 * 3D card tilt effect on mouse move using CSS `perspective` + `rotateX/Y`
 * 6 unique color themes per book card (purple, cyan, amber, green, pink, red)
@@ -302,16 +301,8 @@ Test coverage includes:
 * Consistent input styles across search and upload forms
 * Inline PDF reader using Blob URL to bypass `X-Frame-Options`
 
----
+------------------------------------------------------------------------------
 
-## ⚠ Known Limitations
-
-* EPUB reading is not implemented (upload supported, inline reading not)
-* Authentication and authorization are not included
-* Cover image upload is supported but display not implemented in UI
-* No pagination on ebook listing
-
----
 
 ## 🚀 Future Enhancements
 
@@ -326,11 +317,11 @@ Test coverage includes:
 * Cloud Storage (AWS S3)
 * Role-Based Access Control
 
----
+------------------------------------------------------------------------------
 
 ## 🤖 AI Tools Used
 
-* **Amazon Q** — Used as development assistant for architecture planning, debugging, UI design, and code optimization
+* **Claude** — Used as development assistant for architecture planning, debugging, and code optimization
 * **ChatGPT** — Used for initial project scaffolding and guidance
 
 All generated code was manually reviewed, integrated, tested, and modified where necessary.

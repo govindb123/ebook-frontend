@@ -1,21 +1,20 @@
 .book-card {
   position: relative;
-  width: 340px;
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.15);
+  width: 300px;
+  background: linear-gradient(145deg, #1a1a2e, #16213e);
+  border: 1px solid rgba(255,255,255,0.12);
   border-radius: 20px;
-  backdrop-filter: blur(24px);
   transition: transform 0.15s ease, box-shadow 0.15s ease;
   transform-style: preserve-3d;
   cursor: default;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.12);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.08);
 }
 
 .book-card:hover {
   box-shadow:
     0 28px 70px rgba(0,0,0,0.7),
-    0 0 50px var(--card-glow),
-    inset 0 1px 0 rgba(255,255,255,0.18);
+    0 0 40px var(--card-glow),
+    inset 0 1px 0 rgba(255,255,255,0.12);
 }
 
 .book-card__spine {
@@ -23,26 +22,26 @@
   left: 0;
   top: 0;
   bottom: 0;
-  width: 8px;
+  width: 7px;
   border-radius: 20px 0 0 20px;
 }
 
 .book-card__content {
-  padding: 32px 24px 24px 34px;
+  padding: 36px 28px 28px 36px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 14px;
 }
 
 .book-card__icon {
-  font-size: 48px;
+  font-size: 56px;
   line-height: 1;
 }
 
 .book-card__title {
-  font-size: 20px;
+  font-size: 22px;
   font-weight: 700;
-  color: #111111;
+  color: #f0f0ff;
   line-height: 1.35;
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -52,11 +51,11 @@
 }
 
 .book-card__author {
-  font-size: 14px;
+  font-size: 15px;
   font-style: italic;
-  font-weight: 600;
+  font-weight: 500;
   font-family: var(--font);
-  color: #222222;
+  color: #a0a0c8;
 }
 
 .book-card__meta {
@@ -69,25 +68,25 @@
   font-size: 12px;
   padding: 5px 12px;
   border-radius: 20px;
-  background: rgba(255,255,255,0.15);
-  border: 1px solid rgba(255,255,255,0.2);
-  color: #111111;
-  font-weight: 700;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  color: #c0c0d8;
+  font-weight: 600;
   font-family: var(--font);
 }
 
 .book-card__actions {
   display: flex;
   gap: 10px;
-  margin-top: 8px;
+  margin-top: 12px;
   flex-wrap: wrap;
 }
 
 .btn {
-  padding: 7px 12px;
+  padding: 11px 18px;
   border: none;
-  border-radius: 8px;
-  font-size: 12px;
+  border-radius: 10px;
+  font-size: 13px;
   font-weight: 700;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -102,30 +101,29 @@
 }
 
 .btn--read:hover {
-  transform: translateY(-3px) scale(1.04);
+  transform: translateY(-2px) scale(1.04);
   filter: brightness(1.2);
 }
 
 .btn--download {
-  background: #1e1e2e;
-  color: #ffffff;
-  border: 2px solid rgba(255,255,255,0.4);
-  padding: 7px 10px;
+  background: rgba(255,255,255,0.1);
+  color: #e0e0f0;
+  border: 1px solid rgba(255,255,255,0.25);
+  padding: 8px 12px;
 }
 
 .btn--download:hover {
-  background: #2a2a3e;
-  border-color: #ffffff;
+  background: rgba(255,255,255,0.18);
+  border-color: rgba(255,255,255,0.45);
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+  color: #ffffff;
 }
 
 .btn--danger {
-  background: rgba(239,68,68,0.15);
-  color: #ff8080;
-  border: 1px solid rgba(239,68,68,0.35);
-  padding: 7px 10px;
-  font-size: 13px;
+  background: rgba(239,68,68,0.12);
+  color: #f87171;
+  border: 1px solid rgba(239,68,68,0.3);
+  padding: 8px 10px;
 }
 
 .btn--danger:hover {
