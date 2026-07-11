@@ -1,20 +1,17 @@
 import { useEffect, useState } from "react";
-import { getEbooks } from "../api/ebookApi";
+import { getEbooks, searchEbooks, deleteEbook } from "../api/ebookApi";
 import BookCard from "../components/BookCard";
 import EmptyState from "../components/EmptyState";
 import Loader from "../components/Loader";
 import UploadModal from "../components/UploadModal";
 import SearchBar from "../components/SearchBar";
-import { searchEbooks } from "../api/ebookApi";
-import { deleteEbook } from "../api/ebookApi";
+import "./Library.css";
 
 function Library() {
   const [ebooks, setEbooks] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    fetchEbooks();
-  }, []);
+  useEffect(() => { fetchEbooks(); }, []);
 
   const fetchEbooks = async () => {
     try {
@@ -29,11 +26,7 @@ function Library() {
 
   const handleSearch = async (query) => {
     try {
-      if (!query.trim()) {
-        fetchEbooks();
-        return;
-      }
-
+      if (!query.trim()) { fetchEbooks(); return; }
       const response = await searchEbooks(query);
       setEbooks(response.data.data);
     } catch (error) {
@@ -42,12 +35,7 @@ function Library() {
   };
 
   const handleDelete = async (id) => {
-    const confirmed = window.confirm(
-      "Are you sure you want to delete this ebook?"
-    );
-
-    if (!confirmed) return;
-
+    if (!window.confirm("Are you sure you want to delete this ebook?")) return;
     try {
       await deleteEbook(id);
       fetchEbooks();
@@ -56,29 +44,36 @@ function Library() {
     }
   };
 
-  if (loading) {
-    return <Loader />;
-  }
+  if (loading) return <Loader />;
 
   return (
-    <div style={{ padding: "20px" }}>
-      <h1>Digital Ebook Library</h1>
+    <div className="library">
+      <header className="library__header">
+        <div className="library__header-glow" />
+        <div className="library__hero">
+          <h1 className="library__hero-title">📖 E-Book Library</h1>
+          <p className="library__hero-desc">Your personal digital reading collection — upload, read and download books anytime.</p>
+        </div>
+        <div className="library__title-wrap">
+          <span className="library__icon">📚</span>
+          <div>
+            <h2 className="library__title">Digital Library</h2>
+            <p className="library__subtitle">{ebooks.length} book{ebooks.length !== 1 ? "s" : ""} in your collection</p>
+          </div>
+        </div>
+      </header>
 
-      <UploadModal fetchEbooks={fetchEbooks} />
-      <SearchBar onSearch={handleSearch} />
+      <div className="library__controls">
+        <SearchBar onSearch={handleSearch} />
+        <UploadModal fetchEbooks={fetchEbooks} />
+      </div>
 
-      <hr />
+      <div className="library__divider" />
 
       {ebooks.length === 0 ? (
         <EmptyState />
       ) : (
-        <div
-          style={{
-            display: "flex",
-            flexWrap: "wrap",
-            gap: "20px",
-          }}
-        >
+        <div className="library__grid">
           {ebooks.map((ebook) => (
             <BookCard key={ebook.id} ebook={ebook} onDelete={handleDelete} />
           ))}

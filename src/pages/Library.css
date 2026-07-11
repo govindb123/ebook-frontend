@@ -1,0 +1,108 @@
+.library {
+  padding: 40px 0;
+  min-height: 100vh;
+  width: 100%;
+}
+
+.library__hero {
+  text-align: center;
+  padding: 48px 20px 36px;
+}
+
+.library__hero-title {
+  font-size: 52px;
+  font-weight: 800;
+  background: linear-gradient(135deg, #ffffff 0%, #a78bfa 50%, #06b6d4 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -1.5px;
+  line-height: 1.1;
+  margin-bottom: 14px;
+}
+
+.library__hero-desc {
+  font-size: 16px;
+  color: #a0a0c0;
+  max-width: 480px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.library__header {
+  position: relative;
+  margin-bottom: 24px;
+  padding: 0 24px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+}
+
+.library__header-glow {
+  position: absolute;
+  top: -60px;
+  left: -60px;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.library__title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  position: relative;
+}
+
+.library__icon {
+  font-size: 48px;
+  filter: drop-shadow(0 0 20px rgba(124,58,237,0.6));
+}
+
+.library__title {
+  font-size: 32px;
+  font-weight: 700;
+  background: linear-gradient(135deg, #f0f0ff 0%, var(--accent2) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -1px;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.library__subtitle {
+  color: var(--text);
+  font-size: 14px;
+}
+
+.library__controls {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 28px;
+  padding: 0 24px;
+  justify-content: center;
+}
+
+.library__divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border), transparent);
+  margin-bottom: 32px;
+}
+
+.library__grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  justify-content: center;
+  padding: 0 24px;
+}
+
+@media (max-width: 768px) {
+  .library__hero-title { font-size: 32px; }
+  .library__controls { flex-direction: column; }
+  .library__grid { padding: 0 12px; }
+}
