@@ -1,373 +1,363 @@
 # 📚 Digital Ebook Library
 
-A full-stack Digital Ebook Library application built using **Ruby on Rails API** and **React**. The application allows users to upload, manage, search, read, download, and delete ebooks through a clean and user-friendly interface.
+A full-stack Digital Ebook Library application built using **Ruby on Rails API** and **React (Vite)**. Users can upload, manage, search, read, and download ebooks through a modern 3D glassmorphism UI.
 
 ---
 
 ## 🚀 Project Overview
 
-The Digital Ebook Library is a simple yet complete ebook management system. Users can:
+The Digital Ebook Library is a complete ebook management system. Users can:
 
-* Upload PDF ebooks
-* View all uploaded ebooks
-* Search ebooks by title, author, or file name
-* Read ebooks
-* Download ebooks
-* Delete ebooks
-* Experience proper loading, empty, and error states
-
-The backend is built with **Ruby on Rails API**, while the frontend is developed using **React**.
+* Upload PDF / EPUB ebooks (up to 25MB)
+* View all uploaded ebooks in a card grid
+* Search ebooks by title, author, or filename
+* Read ebooks inline in the browser (PDF viewer)
+* Download ebooks directly to their device
+* Delete ebooks with confirmation
+* Experience loading, empty, and error states
 
 ---
 
-# 🛠 Tech Stack
+## 🛠 Tech Stack
 
-## Backend
+### Backend
 
-* Ruby 3.2.1
-* Ruby on Rails 7.1
-* PostgreSQL
-* Active Storage
-* RSpec
-* FactoryBot
-* Faker
-* Rack CORS
+| Technology | Version |
+|---|---|
+| Ruby | 3.2.1 |
+| Ruby on Rails | 7.1.6 |
+| PostgreSQL | Latest |
+| Active Storage | Built-in |
+| Puma | >= 5.0 |
+| Rack CORS | Latest |
+| RSpec Rails | Latest |
+| FactoryBot Rails | Latest |
+| Faker | Latest |
 
-## Frontend
+### Frontend
 
-* React (Vite)
-* React Router DOM
-* Axios
-* React Hooks
+| Technology | Version |
+|---|---|
+| React | 19.x |
+| Vite | 8.x |
+| React Router DOM | 7.x |
+| Axios | 1.x |
+| Tailwind CSS | 4.x |
+| React Hook Form | 7.x |
+| React Hot Toast | 2.x |
 
 ---
 
-# 📁 Project Structure
+## 📁 Project Structure
 
 ```
 ebook-library/
-
-├── backend/
-│   ├── app/
-│   ├── config/
-│   ├── spec/
-│   └── storage/
 │
-└── frontend/
+├── ebook_library_api/               # Rails API Backend
+│   ├── app/
+│   │   ├── controllers/
+│   │   │   └── api/v1/
+│   │   │       └── ebooks_controller.rb
+│   │   ├── models/
+│   │   │   └── ebook.rb
+│   │   └── serializers/
+│   │       └── ebook_serializer.rb
+│   ├── config/
+│   │   └── routes.rb
+│   ├── db/
+│   │   └── schema.rb
+│   └── spec/
+│       ├── factories/
+│       │   └── ebooks.rb
+│       ├── fixtures/files/
+│       │   └── sample.pdf
+│       └── requests/
+│           └── ebooks_spec.rb
+│
+└── ebook-frontend/                  # React Frontend
     ├── src/
     │   ├── api/
-    │   ├── components/
-    │   ├── pages/
+    │   │   ├── axios.js
+    │   │   └── ebookApi.js
     │   ├── assets/
-    │   └── App.jsx
+    │   │   └── hero.png
+    │   ├── components/
+    │   │   ├── BookCard.jsx / .css
+    │   │   ├── EmptyState.jsx
+    │   │   ├── Loader.jsx
+    │   │   ├── SearchBar.jsx / .css
+    │   │   └── UploadModal.jsx / .css
+    │   ├── pages/
+    │   │   ├── Library.jsx / .css
+    │   │   └── Reader.jsx / .css
+    │   ├── App.jsx
+    │   ├── index.css
+    │   └── main.jsx
+    ├── package.json
+    └── vite.config.js
 ```
 
 ---
 
-# ✨ Features
+## ✨ Features
 
-## Backend
+### Backend
 
-* RESTful API
-* Ebook Upload
-* Ebook Listing
-* Ebook Details
-* Search API
-* Download API
-* Delete API
-* Active Storage
-* File Validation
-* JSON Responses
-* Error Handling
-* RSpec Test Cases
+* RESTful API with versioning (`/api/v1`)
+* Ebook upload with Active Storage
+* File validation — PDF and EPUB only, max 25MB
+* Ebook listing with file metadata via custom serializer
+* Single ebook fetch
+* Full-text search by title, author, filename (case-insensitive)
+* File download via Active Storage blob redirect
+* Ebook delete with file cleanup
+* JSON responses with consistent structure
+* CORS configured via Rack CORS
+* RSpec request specs with FactoryBot and Faker
 
----
+### Frontend
 
-## Frontend
+* Dark glassmorphism UI with 3D card tilt effect
+* Hero banner background image
+* Gradient page title
+* Book cards with unique color themes per book (6 themes)
+* Inline PDF reader using Blob URL (bypasses X-Frame-Options)
+* Auto file download using Blob URL
+* Search bar with live filtering
+* Upload form with title, author, PDF file picker
+* Loading spinner state
+* Empty library state
+* Responsive layout
 
-* Ebook Library Dashboard
-* Upload Ebook
-* Search Ebook
-* Read Ebook
-* Download Ebook
-* Delete Ebook
-* Loading State
-* Empty State
-* Responsive UI
+------------------------------------------------
 
----
+## 📌 API Endpoints
 
-# 📌 API Endpoints
+### Get All Ebooks
 
-## Get All Ebooks
-
-```
 GET /api/v1/ebooks
-```
 
----
 
-## Upload Ebook
+### Upload Ebook
 
-```
 POST /api/v1/ebooks
-```
 
-Form Data
+Form Data:
 
-```
-title
-author
-file
-cover (optional)
-```
+title     (required)
+author    (required)
+file      (required - PDF or EPUB, max 25MB)
+cover     (optional)
 
----
 
-## Get Single Ebook
+### Get Single Ebook
 
-```
 GET /api/v1/ebooks/:id
-```
 
----
 
-## Search Ebook
+### Search Ebooks
 
-```
 GET /api/v1/ebooks/search?q=keyword
-```
 
----
+Searches by title, author, or filename (case-insensitive).
 
-## Download Ebook
+### Download Ebook
 
-```
 GET /api/v1/ebooks/:id/download
-```
 
----
+### Delete Ebook
 
-## Delete Ebook
-
-```
 DELETE /api/v1/ebooks/:id
-```
 
----
 
-# 🗄 Database
+--------------------------------------------------------------------------
 
-## Ebook
+## 🗄 Database Schema
+
+### ebooks table
 
 | Column     | Type     |
-| ---------- | -------- |
+|----------  |----- --  |
 | id         | bigint   |
 | title      | string   |
 | author     | string   |
 | created_at | datetime |
 | updated_at | datetime |
 
-Attachments
+### Active Storage Tables
 
-* file
-* cover (optional)
+* `active_storage_blobs` — stores file metadata
+* `active_storage_attachments` — polymorphic join table
+* `active_storage_variant_records` — image variants
 
----
+### Attachments per Ebook
 
-# ⚙ Backend Setup
+* file — required (PDF or EPUB)
+* cover — optional (cover image)
 
-Clone the repository
+----------------------------------------------------------------------------
 
-```bash
-git clone <repository-url>
-```
+## ⚙ Backend Setup
 
-Move to backend
+Clone the repository:
 
-```bash
-cd backend
-```
+bash
+git clone https://github.com/govindb123/ebook_library_api
+cd ebook_library_api
 
-Install dependencies
 
-```bash
+Install dependencies:
+ bash
 bundle install
-```
 
-Create database
 
+Create and migrate database:
 ```bash
 rails db:create
-```
-
-Run migrations
-
-```bash
 rails db:migrate
 ```
 
-Install Active Storage
-
+Install Active Storage:
 ```bash
 rails active_storage:install
 rails db:migrate
 ```
 
-Start server
-
+Start server:
 ```bash
 rails server
 ```
 
-Backend runs on
-
+Backend runs on:
 ```
 http://localhost:3000
 ```
 
----
+--------------------------------------------------------------------
 
-# 💻 Frontend Setup
+## 💻 Frontend Setup
 
-Move to frontend
+Clone the repository:
 
-```bash
-cd frontend
-```
-
-Install packages
+bash
+git clone https://github.com/govindb123/ebook-frontend
 
 ```bash
+cd ebook-frontend
 npm install
-```
-
-Run project
-
-```bash
 npm run dev
 ```
 
-Frontend runs on
-
+Frontend runs on:
 ```
 http://localhost:5173
 ```
 
 ---
 
-# 🧪 Running Tests
-
-Backend tests
+## 🧪 Running Tests
 
 ```bash
+cd ebook_library_api
 bundle exec rspec
 ```
 
-Current Status
-
-```
-7 Examples
-0 Failures
-```
+Test coverage includes:
+* GET /api/v1/ebooks — list all ebooks
+* POST /api/v1/ebooks — upload ebook
+* GET /api/v1/ebooks/:id — fetch single ebook
+* GET /api/v1/ebooks/search — search ebooks
+* GET /api/v1/ebooks/:id/download — download ebook
+* DELETE /api/v1/ebooks/:id — delete ebook
+* Validation errors (missing file, invalid file type)
 
 ---
 
-# 📝 Manual Testing Checklist
+## 📝 Manual Testing Checklist
 
 * Upload a PDF ebook
-* View uploaded ebooks
+* Upload an EPUB ebook
+* Upload file > 25MB (should fail validation)
+* Upload invalid file type (should fail validation)
+* View uploaded ebooks grid
 * Search by title
 * Search by author
 * Search by filename
-* Read ebook
-* Download ebook
-* Delete ebook
+* Read ebook inline (PDF viewer)
+* Download ebook to device
+* Delete ebook with confirmation
 * Empty library state
-* Validation errors
-* Invalid file upload
+* Loading state
 
 ---
 
-# 🤖 AI Tools Used
+## 🎨 UI Design
 
-The following AI tools were used as development assistants during this assignment:
-
-* ChatGPT
-
-### AI Assistance
-
-* Project architecture planning
-* API design guidance
-* React component structure
-* Debugging support
-* Code optimization suggestions
-* Test case guidance
-* Documentation drafting
-
-### Manual Work
-
-All generated code was manually reviewed, integrated, tested, and modified where necessary. The final implementation, testing, debugging, and project integration were completed manually.
+* Dark theme with `#0d0d18` background
+* Glassmorphism cards with `backdrop-filter: blur`
+* 3D card tilt effect on mouse move using CSS `perspective` + `rotateX/Y`
+* 6 unique color themes per book card (purple, cyan, amber, green, pink, red)
+* Gradient hero title
+* Hero banner background image
+* Consistent input styles across search and upload forms
+* Inline PDF reader using Blob URL to bypass `X-Frame-Options`
 
 ---
 
-# 📸 Screenshots
+## ⚠ Known Limitations
 
-Include screenshots for:
-
-* Library Dashboard
-* Upload Ebook
-* Search
-* Read Ebook
-* Download
-* Delete Confirmation
+* EPUB reading is not implemented (upload supported, inline reading not)
+* Authentication and authorization are not included
+* Cover image upload is supported but display not implemented in UI
+* No pagination on ebook listing
 
 ---
 
-# ⚠ Known Limitations
+## 🚀 Future Enhancements
 
-* PDF reading opens in the browser for compatibility.
-* EPUB reading is not implemented.
-* Authentication and authorization are not included.
-* Cover image generation is optional and not implemented.
-
----
-
-# 🚀 Future Enhancements
-
-* User Authentication
-* EPUB Support
-* Bookshelf-style UI
-* Last Read Position
-* Sorting
-* Filtering
+* User Authentication (Devise / JWT)
+* EPUB inline reader
+* Cover image display on cards
 * Pagination
-* Docker Support
+* Sorting and filtering
+* Bookshelf-style UI
+* Last read position tracking
+* Docker support
 * Cloud Storage (AWS S3)
 * Role-Based Access Control
 
 ---
 
-# 📋 Assignment Requirements Covered
+## 🤖 AI Tools Used
+
+* **Amazon Q** — Used as development assistant for architecture planning, debugging, UI design, and code optimization
+* **ChatGPT** — Used for initial project scaffolding and guidance
+
+All generated code was manually reviewed, integrated, tested, and modified where necessary.
+
+---
+
+## 📋 Assignment Requirements Covered
 
 * Ruby on Rails API ✅
 * React Frontend ✅
 * Ebook Upload ✅
 * Ebook Listing ✅
 * Ebook Search ✅
-* Ebook Reading ✅
+* Ebook Reading (inline PDF) ✅
 * Ebook Download ✅
 * Ebook Delete ✅
 * Active Storage ✅
+* File Validation (type + size) ✅
 * API Error Handling ✅
-* Validations ✅
-* Backend Testing ✅
+* Custom Serializer ✅
+* Backend Testing (RSpec) ✅
 * AI Usage Documentation ✅
 * Professional Documentation ✅
 
 ---
 
-# 👨‍💻 Author
+## 👨‍💻 Author
 
 **Govind Birajdar**
 
